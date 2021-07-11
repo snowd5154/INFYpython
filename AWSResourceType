@@ -1,0 +1,44 @@
+
+##The followoing code will be a lambda function
+#to access AWS config and search for the
+#total resources being used
+
+##More than likley this code will have/need to give
+#an option to delete
+
+##Install the following pip's before coding
+##pip install requests
+#pip install html5lib
+#pip install bs4
+
+##This python program will scrape the website
+#and get the services/resource being used on AWS
+
+#When trying to get a part of website whether you create one
+#or is someone else's use these python libraries:
+#selenium web driver pack and beautiful soup
+
+#Code from GeeksForGeeks
+#import requests
+#from bs4 import BeautifulSoup
+#URL = 'http://console.aws.amazon.com/config/home?region=us-east-1#/dashboard'
+#r = requests.get(URL)
+#soup = BeautifulSoup(r.content, 'html5lib')
+#dashboard = [] # a list to store all resource being used
+#soup.find('div', attrs = { 'id':'all-dashboard'})
+
+#Code from other online source
+from bs4 import BeautifulSoup
+from selenium import webdriver
+driver = webdriver.Firefox()
+driver.get('http://console.aws.amazon.com/config/home?region=us-east-1#/dashboard')
+
+html = driver.page_source
+soup = BeautifulSoup(html)
+
+# check out the docs for the kinds of things you can do with 'find_all'
+# this is an untested snippet should find tags with a specific class ID
+# see: http://www.crummy.com/software/BeautifulSoup/bs4/doc/#searching-by-css-class
+#I know we are not dealing with a CSS class b/c AWS is not our website
+for tag in soup.find_all("All supported resources types"):
+    print tag.text
